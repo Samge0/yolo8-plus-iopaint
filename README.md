@@ -1,6 +1,6 @@
 ## 移除品牌logo水印的demo
 
-本demo使用[ultralytics-YOLO8](https://github.com/ultralytics/ultralytics)对水印位置进行模型训练&检测，然后使用[IOPaint](https://github.com/Sanster/IOPaint)移除检测到的水印。
+本demo使用[ultralytics-YOLO8](https://github.com/ultralytics/ultralytics)对水印位置进行检测，然后使用[IOPaint](https://github.com/Sanster/IOPaint)移除yolo识别的目标水印。
 
 本demo中使用的[last.pt](models/last.pt)模型来自[yolo8-watermark-brand](https://github.com/Samge0/yolo8-watermark-brand)仓库。
 
