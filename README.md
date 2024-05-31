@@ -34,3 +34,9 @@ IOPaint==1.3.3
 ```shell
 python remove_watermark.py
 ```
+
+### 相关截图
+
+|before|after|
+|:--------:|:--------:|
+|![before](https://github.com/Samge0/yolo8-plus-iopaint/assets/17336101/801bdcef-88d7-449d-a48a-428e117b58ab)|![after](https://github.com/Samge0/yolo8-plus-iopaint/assets/17336101/a465b913-4aa1-4c04-a12b-c0211d47b6bc)|
