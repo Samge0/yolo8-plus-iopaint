@@ -1,37 +1,47 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # author：samge
-# date：2024-05-31 16:04
-# describe：使用yolo8+iopaint结合，用yolo8识别目标水印位置，调用iopaint移除水印
+# date：2024-06-03 14:06
+# describe：使用onnx推理
 
-import cv2
 import os
-from ultralytics.utils import checks
-from yolo_utils import YOLOUtils
+import cv2
+import torch
+
+from onnx_utils import OnnxUtils
 from iopaint_utils import IOPaintCmdUtil
 
-CUDA_IS_AVAILABLE = checks.cuda_is_available()
+CUDA_IS_AVAILABLE = torch.cuda.is_available()
 
 output_dir = ".cache"                               # 输出目录
-model_path = "models/last.pt"                       # yolo模型路径
+model_path = "models/last.onnx"                     # yolo模型路径，pt转onnx模型可参考`yolo_utils.py`的mian函数
 device = "cuda" if CUDA_IS_AVAILABLE else "cpu"     # 设备类型
+
+SAVE_ONNX_BORDER_IMAGE = False                      # 是否保存onnx检测到边框的结果
 
 
 # 擦除水印
 def detect_and_erase(image_path, model_path, output_dir, device="cpu"):
-    # 初始化YOLO模型和IOPaint工具
-    yolo_obj = YOLOUtils(model_path)
+    # 初始化ONNX模型和IOPaint工具
+    onnx_obj = OnnxUtils(model_path, conf_thres=0.75, iou_thres=0.75, imgsz=[288, 288])
     iopaint_obj = IOPaintCmdUtil(device=device)
 
     # 读取图像
     image = cv2.imread(image_path)
 
     # 使用YOLO模型获取边界框
-    bboxes = yolo_obj.get_bboxes(image)
+    bboxes, scores, class_ids = onnx_obj(image)
+    print(bboxes, scores, class_ids)
 
     # 创建并保存掩码图像
     mask = iopaint_obj.create_mask(image, bboxes)
     iopaint_obj.erase_watermark(image_path, mask, output_dir)
+
+    # 【可选】绘制onnx检测到的目标边框并保存
+    if SAVE_ONNX_BORDER_IMAGE:
+        onnx_obj.draw_boxes(image, bboxes, scores, class_ids)
+        output_path = f"{output_dir}/border_{os.path.basename(image_path)}"
+        cv2.imwrite(output_path, image)
 
 
 # Run batch

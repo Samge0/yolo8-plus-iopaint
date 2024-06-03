@@ -12,6 +12,13 @@ torch==2.3.0+cu118
 torchvision==0.18.0+cu118
 ultralytics==8.2.26
 IOPaint==1.3.3
+onnxruntime_gpu==1.18.0
+
+# the onnx dependency is to automatically export the onnx model at train time
+onnx==1.16.1
+onnx-simplifier==0.4.36
+onnxsim==0.4.36
+onnxslim==0.1.28
 ```
 
 
@@ -30,10 +37,26 @@ IOPaint==1.3.3
     ```
 
 
-### 运行
+### 运行方式-demo1：`ultralytics + IOPaint（命令行方式）`，[脚本：remove_watermark.py](remove_watermark.py)
 ```shell
 python remove_watermark.py
 ```
+
+
+### 运行方式-demo2：`onnxruntime + IOPaint（命令行方式）`，[脚本：remove_watermark_with_onnx.py](remove_watermark_with_onnx.py)
+pt转onnx模型可参考[yolo_utils.py](yolo_utils.py)的mian函数
+```shell
+python remove_watermark_with_onnx.py
+```
+
+
+### 错误处理
+> 1、如果遇到`Could not locate zlibwapi.dll. Please make sure it is in your library path`错误，需要下载相关dll放置到目标位置：
+
+- [点击下载：https://pan.baidu.com/s/1SrxZFkxwpwydn1fuFaWtgw?pwd=6cgb 提取码: 6cgb](https://pan.baidu.com/s/1SrxZFkxwpwydn1fuFaWtgw?pwd=6cgb)
+- lib文件放到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.x\lib` （这里以windows系统为例，其中`v11.x`是实际安装的cuda版本路径）
+- dll文件放到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.x\bin` （这里以windows系统为例，其中`v11.x`是实际安装的cuda版本路径）
+
 
 ### 相关截图
 
