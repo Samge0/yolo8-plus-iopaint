@@ -9,7 +9,7 @@ import cv2
 import torch
 
 from onnx_utils import OnnxUtils
-from iopaint_utils import IOPaintCmdUtil
+from iopaint_utils import IOPaintCmdUtil, IOPaintApiUtil
 
 CUDA_IS_AVAILABLE = torch.cuda.is_available()
 
@@ -19,12 +19,14 @@ device = "cuda" if CUDA_IS_AVAILABLE else "cpu"     # 设备类型
 
 SAVE_ONNX_BORDER_IMAGE = False                      # 是否保存onnx检测到边框的结果
 
+USE_IOPAINT_API = True                              # 【推荐】是否使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py
+
 
 # 擦除水印
 def detect_and_erase(image_path, model_path, output_dir, device="cpu"):
     # 初始化ONNX模型和IOPaint工具
     onnx_obj = OnnxUtils(model_path, conf_thres=0.75, iou_thres=0.75, imgsz=[288, 288])
-    iopaint_obj = IOPaintCmdUtil(device=device)
+    iopaint_obj = IOPaintApiUtil(device=device) if USE_IOPAINT_API else IOPaintCmdUtil(device=device)
 
     # 读取图像
     image = cv2.imread(image_path)
@@ -64,6 +66,10 @@ if __name__ == "__main__":
     """
     使用示例
     """
+    
+    if USE_IOPAINT_API:
+        print("=====【温馨提示】使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py=====\n")
+
     os.makedirs(output_dir, exist_ok=True)
 
     # 移除单张水印

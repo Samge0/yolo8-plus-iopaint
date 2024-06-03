@@ -8,7 +8,7 @@ import cv2
 import os
 from ultralytics.utils import checks
 from yolo_utils import YOLOUtils
-from iopaint_utils import IOPaintCmdUtil
+from iopaint_utils import IOPaintCmdUtil, IOPaintApiUtil
 
 CUDA_IS_AVAILABLE = checks.cuda_is_available()
 
@@ -16,12 +16,14 @@ output_dir = ".cache"                               # 输出目录
 model_path = "models/last.pt"                       # yolo模型路径
 device = "cuda" if CUDA_IS_AVAILABLE else "cpu"     # 设备类型
 
+USE_IOPAINT_API = True                              # 【推荐】是否使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py
+
 
 # 擦除水印
 def detect_and_erase(image_path, model_path, output_dir, device="cpu"):
     # 初始化YOLO模型和IOPaint工具
     yolo_obj = YOLOUtils(model_path)
-    iopaint_obj = IOPaintCmdUtil(device=device)
+    iopaint_obj = IOPaintApiUtil(device=device) if USE_IOPAINT_API else IOPaintCmdUtil(device=device)
 
     # 读取图像
     image = cv2.imread(image_path)
@@ -54,6 +56,10 @@ if __name__ == "__main__":
     """
     使用示例
     """
+
+    if USE_IOPAINT_API:
+        print("=====【温馨提示】使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py=====\n")
+
     os.makedirs(output_dir, exist_ok=True)
 
     # 移除单张水印

@@ -4,6 +4,11 @@
 
 本demo中使用的[last.pt](models/last.pt)模型来自[yolo8-watermark-brand](https://github.com/Samge0/yolo8-watermark-brand)仓库。
 
+本demo支持使用iopaint的api方式去除水印（`USE_IOPAINT_API=True`），减少批量操作时iopaint命令行方式的初始化耗时。如果设置为True，需要先运行iopaint服务：
+```shell
+python iopaint_server.py
+```
+
 
 ### 当前开发环境使用的关键依赖版本
 ```text
