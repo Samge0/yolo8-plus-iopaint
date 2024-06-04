@@ -8,11 +8,18 @@ import os
 import requests
 import base64
 
+
+# IOPaint的服务地址，除了在本项目中执行 python iopaint_server.py 启动iopaint服务外，也可以选择对接单独部署的iopaint服务
+IOPAINT_SERVER_HOST = "http://127.0.0.1:8000"
+
+
 class InpaintAPI:
 
     def __init__(self):
-        self.api_inpaint = "http://127.0.0.1:8000/api/v1/inpaint"
-        self.headers = {"Content-Type": "application/json" }
+        self.api_inpaint = f"{IOPAINT_SERVER_HOST}/api/v1/inpaint"
+        self.headers = {
+            "Content-Type": "application/json"
+        }
         self.timeout = 30
 
     def convert_image_to_base64(self, image_path):

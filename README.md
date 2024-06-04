@@ -4,10 +4,14 @@
 
 本demo中使用的[last.pt](models/last.pt)模型来自[yolo8-watermark-brand](https://github.com/Samge0/yolo8-watermark-brand)仓库。
 
-本demo支持使用iopaint的api方式去除水印（`USE_IOPAINT_API=True`），减少批量操作时iopaint命令行方式的初始化耗时。如果设置为True，需要先运行iopaint服务：
+本demo支持使用iopaint的api方式去除水印，只需在[remove_watermark_with_onnx.py](remove_watermark_with_onnx.py) 或 [remove_watermark.py](remove_watermark.py)中配置`USE_IOPAINT_API=True`，可减少批量操作时iopaint命令行方式的初始化耗时。
+
+如果配置`USE_IOPAINT_API=True`，需要先启动iopaint服务：
 ```shell
 python iopaint_server.py
 ```
+
+当然，也可以选择对接单独部署的iopaint服务，只需要在[iopaint_api_utils.py](iopaint_api_utils.py)中配置自定义的`IOPAINT_SERVER_HOST`即可。
 
 
 ### 当前开发环境使用的关键依赖版本
