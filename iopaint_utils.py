@@ -60,11 +60,12 @@ class IOPaintCmdUtil(BaseIOPaint):
             f'--output={output_dir}'
         ]
 
-        subprocess.run(command, check=True)
-        os.remove(temp_mask_path) if os.path.exists(temp_mask_path) else None
-
-        output_path = f"{output_dir}/{image_name}"
-        print(f"水印已移除： {image_path} => {output_path}")
+        try:
+            subprocess.run(command, check=True)
+            output_path = f"{output_dir}/{image_name}"
+            print(f"水印已移除： {image_path} => {output_path}")
+        finally:
+            os.remove(temp_mask_path) if os.path.exists(temp_mask_path) else None
 
 
 class IOPaintApiUtil(BaseIOPaint):
@@ -81,7 +82,8 @@ class IOPaintApiUtil(BaseIOPaint):
         # 创建InpaintAPI类的实例 + 发送请求
         output_path = f"{output_dir}/{image_name}"
         inpaint_api = InpaintAPI()
-        inpaint_api.send_inpaint_request(image_path, temp_mask_path, output_path)
-        os.remove(temp_mask_path) if os.path.exists(temp_mask_path) else None
-
-        print(f"水印已移除： {image_path} => {output_path}")
+        try:
+            inpaint_api.send_inpaint_request(image_path, temp_mask_path, output_path)
+            print(f"水印已移除： {image_path} => {output_path}")
+        finally:
+            os.remove(temp_mask_path) if os.path.exists(temp_mask_path) else None

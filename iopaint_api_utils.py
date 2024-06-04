@@ -45,7 +45,19 @@ class InpaintAPI:
         }
 
         # 发送POST请求
-        response = requests.post(self.api_inpaint, json=json_body, headers=self.headers, timeout=self.timeout)
+        try:
+            response = requests.post(self.api_inpaint, json=json_body, headers=self.headers, timeout=self.timeout)
+        except requests.ConnectionError:
+            msg = "\n"
+            msg += "=" * 100
+            msg += f"\nFailed to connect to the server.please check if the IOPaint service has started properly：{IOPAINT_SERVER_HOST}.\n"
+            if '127.0.0.1' in IOPAINT_SERVER_HOST or 'localhost' in IOPAINT_SERVER_HOST:
+                msg += "did you forget to execute 'python iopaint_server.py' to start the iopaint service?\n"
+            msg += "=" * 100
+            raise ValueError(msg)
+        except Exception as e:
+            raise e
+        
 
         # 检查响应状态码
         if response.status_code == 200:

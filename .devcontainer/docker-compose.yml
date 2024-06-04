@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  yolo8-plus-iopaint:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile-dev
+      args:
+        # 这里需要替换为自己的实际代理信息，或者注释掉
+        PROXY: http://192.168.50.48:7890
+        XXXX_TAG: XXXX_TAG
+    volumes:
+      # 这里需要替换为自己的实际映射路径
+      - ..:/app    
+      - F:/.cache:/root/.cache    
+    command: sleep infinity
+    restart: unless-stopped
+    environment:
+      NVIDIA_VISIBLE_DEVICES: 0
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
+    # network_mode: host
+    shm_size: 22g
+    ports:
+      - "0.0.0.0:18000:8000"

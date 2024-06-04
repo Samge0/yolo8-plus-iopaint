@@ -1,0 +1,12 @@
+{
+	"name": "yolo8-plus-iopaint",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "yolo8-plus-iopaint",
+    "workspaceFolder": "/app",
+    "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "humao.rest-client",
+        "samge.vscode-samge-translate"
+    ]
+}

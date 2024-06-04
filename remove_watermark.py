@@ -16,7 +16,7 @@ output_dir = ".cache"                               # 输出目录
 model_path = "models/last.pt"                       # yolo模型路径
 device = "cuda" if CUDA_IS_AVAILABLE else "cpu"     # 设备类型
 
-USE_IOPAINT_API = True                              # 【推荐】是否使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py
+USE_IOPAINT_API = True                              # 【推荐】是否使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py 或使用自定义的IOPaint服务
 
 
 # 擦除水印
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     """
 
     if USE_IOPAINT_API:
-        print("=====【温馨提示】使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py=====\n")
+        print("=====【温馨提示】使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py 或使用自定义的IOPaint服务=====\n")
 
     os.makedirs(output_dir, exist_ok=True)
 

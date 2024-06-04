@@ -31,28 +31,33 @@ onnxslim==0.1.28
 ```
 
 
-### 安装依赖
-- 【二选一】安装torch-cpu版
-    ```shell
-    pip install torch torchvision
-    ```
-- 【二选一】安装torch-cuda版
-    ```shell
-    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
-    ```
-- 【必要】安装依赖
-    ```shell
-    pip install -r requirements.txt
-    ```
+### 环境配置
+- 【推荐】使用vscode的`Dev Containers`模式，参考[.devcontainer\README.md](.devcontainer\README.md)
+
+- 【可选】其他虚拟环境方式
+    - 【二选一】安装torch-cpu版
+        ```shell
+        pip install torch torchvision
+        ```
+    - 【二选一】安装torch-cuda版
+        ```shell
+        pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+        ```
+    - 【必要】安装依赖
+        ```shell
+        pip install -r requirements.txt
+        ```
 
 
-### 运行方式-demo1：`ultralytics + IOPaint（命令行方式）`，[脚本：remove_watermark.py](remove_watermark.py)
+### 运行方式-demo1：
+`ultralytics + IOPaint（命令行方式）`，[脚本：remove_watermark.py](remove_watermark.py)
 ```shell
 python remove_watermark.py
 ```
 
 
-### 运行方式-demo2：`onnxruntime + IOPaint（命令行方式）`，[脚本：remove_watermark_with_onnx.py](remove_watermark_with_onnx.py)
+### 运行方式-demo2：
+`onnxruntime + IOPaint（命令行方式）`，[脚本：remove_watermark_with_onnx.py](remove_watermark_with_onnx.py)
 pt转onnx模型可参考[yolo_utils.py](yolo_utils.py)的mian函数
 ```shell
 python remove_watermark_with_onnx.py
