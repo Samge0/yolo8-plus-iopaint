@@ -32,7 +32,7 @@ onnxslim==0.1.28
 
 
 ### 环境配置
-- 【推荐】使用vscode的`Dev Containers`模式，参考[.devcontainer\README.md](.devcontainer\README.md)
+- 【推荐】使用vscode的`Dev Containers`模式，参考[.devcontainer/README.md](.devcontainer/README.md)
 
 - 【可选】其他虚拟环境方式
     - 【二选一】安装torch-cpu版
