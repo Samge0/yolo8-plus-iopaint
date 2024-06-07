@@ -12,6 +12,7 @@ def start_iopaint_server():
     """
     model = "lama"
     device = "cuda"
+    host = "0.0.0.0"
     port = "8000"
     enable_interactive_seg = "--enable-interactive-seg"
     interactive_seg_device = "cuda"
@@ -21,6 +22,7 @@ def start_iopaint_server():
         "iopaint", "start",
         "--model={}".format(model),
         "--device={}".format(device),
+        "--host={}".format(host),
         "--port={}".format(port),
         enable_interactive_seg,
         "--interactive-seg-device={}".format(interactive_seg_device)
