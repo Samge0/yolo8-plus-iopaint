@@ -23,7 +23,7 @@ services:
           - driver: nvidia
             count: 1
             capabilities: [gpu]
-    # network_mode: host
+    network_mode: bridge
     shm_size: 22g
     ports:
       - "0.0.0.0:18000:8000"
