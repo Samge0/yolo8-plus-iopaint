@@ -6,20 +6,22 @@
 
 import subprocess
 
+import configs
+
 def start_iopaint_server():
     """
     运行iopaint服务
     """
     model = "lama"
-    device = "cuda"
+    device = configs.device
     host = "0.0.0.0"
     port = "8000"
     enable_interactive_seg = "--enable-interactive-seg"
-    interactive_seg_device = "cuda"
+    interactive_seg_device = configs.device
     
     # 构建命令
     command = [
-        "iopaint", "start",
+        "python", "-m", "iopaint", "start",
         "--model={}".format(model),
         "--device={}".format(device),
         "--host={}".format(host),

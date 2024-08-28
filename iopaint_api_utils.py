@@ -8,9 +8,11 @@ import os
 import requests
 import base64
 
+import configs
+
 
 # IOPaint的服务地址，除了在本项目中执行 python iopaint_server.py 启动iopaint服务外，也可以选择对接单独部署的iopaint服务
-IOPAINT_SERVER_HOST = "http://127.0.0.1:8000"
+IOPAINT_SERVER_HOST = configs.IOPAINT_SERVER_HOST
 
 
 class InpaintAPI:
@@ -64,16 +66,16 @@ class InpaintAPI:
             # 将返回的二进制图片数据保存到.cache目录
             with open(output_path, "wb") as f:
                 f.write(response.content)
-            print(f"图片已保存到 {output_path}")
+            # print(f"图片已保存到 {output_path}")
         else:
             print(f"请求失败，状态码：{response.status_code}")
 
 
 if __name__ == "__main__":
     # 使用示例
-    image_path = "images/test.png"
+    image_path = f"{configs.images_dir}/test.png"
     mask_path = "your_test_mask_path.png"
-    output_path = ".cache/output.png"
+    output_path = f"{configs.cache_dir}/output.png"
 
     # 创建InpaintAPI类的实例 + 发送请求
     inpaint_api = InpaintAPI()

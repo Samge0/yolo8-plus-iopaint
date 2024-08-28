@@ -6,6 +6,8 @@
 
 from ultralytics import YOLO
 
+import configs
+
 
 class YOLOUtils:
     def __init__(self, model_path):
@@ -19,5 +21,5 @@ class YOLOUtils:
 
 if __name__ == "__main__":
     # 将.pt模型转为.onnx模型，需要安装依赖：onnx==1.16.1、onnx-simplifier==0.4.36、onnxsim==0.4.36、onnxslim==0.1.28、onnxruntime_gpu==1.18.0
-    model = YOLO('models/last.pt')
+    model = YOLO(f"{configs.models_dir}/last.pt")
     model.export(format='onnx', imgsz=288, dynamic=True, simplify=True)
