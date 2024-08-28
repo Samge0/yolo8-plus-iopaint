@@ -6,17 +6,16 @@
 
 import cv2
 import os
-from ultralytics.utils import checks
+import configs
 from yolo_utils import YOLOUtils
 from iopaint_utils import IOPaintCmdUtil, IOPaintApiUtil
 
-CUDA_IS_AVAILABLE = checks.cuda_is_available()
 
-output_dir = ".cache"                               # 输出目录
-model_path = "models/last.pt"                       # yolo模型路径
-device = "cuda" if CUDA_IS_AVAILABLE else "cpu"     # 设备类型
+output_dir = configs.cache_dir                      # 输出目录
+model_path = f"{configs.models_dir}/last.pt"        # yolo模型路径
+device = configs.device                             # 设备类型
 
-USE_IOPAINT_API = True                              # 【推荐】是否使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py 或使用自定义的IOPaint服务
+USE_IOPAINT_API = configs.USE_IOPAINT_API           #【推荐】是否使用iopaint的api方式去除水印，如果设置为True，需要先运行iopaint服务：python iopaint_server.py 或使用自定义的IOPaint服务
 
 
 # 擦除水印
@@ -48,7 +47,7 @@ def _test_batch(batch_dir: str):
             continue
 
         image_path = os.path.join(batch_dir, filename).replace(os.sep, "/")
-        print(f"【{i+1}/{total_size}】 is running: {image_path} => {output_dir}")
+        print(f"\n【{i+1}/{total_size}】 running: ")
         detect_and_erase(image_path, model_path, output_dir, device=device)
 
 
@@ -63,10 +62,10 @@ if __name__ == "__main__":
     os.makedirs(output_dir, exist_ok=True)
 
     # 移除单张水印
-    image_path = "images/test.png"
+    image_path = f"{configs.images_dir}/test.png"
     detect_and_erase(image_path, model_path, output_dir, device=device)
 
     # 移除某个目录所有图片水印
-    _test_batch(batch_dir="images")
+    _test_batch(batch_dir=configs.images_dir)
 
-    print("all done")
+    print("\nall done")

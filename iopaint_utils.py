@@ -11,6 +11,7 @@ import os
 import subprocess
 import numpy as np
 
+import configs
 from iopaint_api_utils import InpaintAPI
 
 
@@ -48,16 +49,16 @@ class IOPaintCmdUtil(BaseIOPaint):
     def erase_watermark(self, image_path, mask, output_dir):
         os.makedirs(output_dir, exist_ok=True)
         image_name = os.path.basename(image_path)
-        temp_mask_path = f'.cache/{uuid.uuid4()}{image_name}'
+        temp_mask_path = f"{configs.cache_dir}/{uuid.uuid4()}{image_name}"
         cv2.imwrite(temp_mask_path, mask)
 
         command = [
-            'iopaint', 'run',
-            '--model=lama',
-            f'--device={self.device}',
-            f'--image={image_path}',
-            f'--mask={temp_mask_path}',
-            f'--output={output_dir}'
+            "python", "-m", "iopaint", "run",
+            "--model=lama",
+            f"--device={self.device}",
+            f"--image={image_path}",
+            f"--mask={temp_mask_path}",
+            f"--output={output_dir}"
         ]
 
         try:
@@ -76,7 +77,7 @@ class IOPaintApiUtil(BaseIOPaint):
     def erase_watermark(self, image_path, mask, output_dir):
         os.makedirs(output_dir, exist_ok=True)
         image_name = os.path.basename(image_path)
-        temp_mask_path = f'.cache/{uuid.uuid4()}{image_name}'
+        temp_mask_path = f"{configs.cache_dir}/{uuid.uuid4()}{image_name}"
         cv2.imwrite(temp_mask_path, mask)
 
         # 创建InpaintAPI类的实例 + 发送请求
