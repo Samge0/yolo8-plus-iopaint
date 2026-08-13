@@ -2,6 +2,9 @@
 
 本Demo使用[Ultralytics-YOLO8](https://github.com/ultralytics/ultralytics)对水印位置进行检测，然后使用[IOPaint](https://github.com/Sanster/IOPaint)移除yolo识别的目标水印。
 
+
+> 🌐 **[在线宣传页](https://samge0.github.io/yolo8-plus-iopaint/)** — 可视化了解功能特性与工作流程
+
 本Demo使用的[last.pt](models/last.pt)模型来自[yolo8-watermark-brand](https://github.com/Samge0/yolo8-watermark-brand)仓库。
 
 
