@@ -1,5 +1,5 @@
 # the onnx dependency is to automatically export the onnx model
-onnx==1.16.1
+onnx==1.17.0
 onnx-simplifier==0.4.36
 onnxsim==0.4.36
 onnxslim==0.1.28
